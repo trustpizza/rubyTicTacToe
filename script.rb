@@ -10,9 +10,7 @@ class TicTacToe
   def start_game
     puts "Player 1 is #{@player_1}"
     puts "Player 2 is #{@player_2}"
-    welcome
-    game_board
-    game
+    play
   end
 
   def welcome
@@ -26,6 +24,7 @@ class TicTacToe
   end
 
   def game_board
+    welcome
     row1 = "#{@board[0]} | #{@board[1]} | #{@board[2]}"
     row2 = "#{@board[3]} | #{@board[4]} | #{@board[5]}"
     row3 = "#{@board[6]} | #{@board[7]} | #{@board[8]}"
@@ -37,7 +36,15 @@ class TicTacToe
     puts row3
   end
 
-  def game 
+  def play 
+    current_player = @player_1
+    game_board
+    puts "#{current_player} which spot would you like to place your token at?"
+    choice = gets.chomp.to_i
+    @board[choice -1] = 'X'
+    game_board
+    current_player == @player_1 ? @player_2 : @player_1
+    play
     # Player 1 goes first
     # Player 1 Selects a space
     # That space [x-1] in the @board is replaced by their token
@@ -45,7 +52,7 @@ class TicTacToe
   end  
 end
 
-class Player
+class Player < TicTacToe
   attr_accessor :name, :game_piece
   @@player_counter = 0;
 
