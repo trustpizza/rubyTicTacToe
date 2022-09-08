@@ -45,7 +45,7 @@ class TicTacToe
       puts "#{current_player.name} which spot would you like to place your token at?"
 
       choice = gets.chomp.to_i
-      @board[choice -1] = current_player.game_piece # This does NOT work right now
+      @board[choice -1] = current_player.game_piece
 
       current_player == @player_1 ? current_player = @player_2 : current_player = @player_1
     end
@@ -58,7 +58,7 @@ class Player
 
   def initialize(num)
     player_name(num)
-    player_piece_choice
+    player_piece_choice(num)
     puts "Hi #{@name}, you are playing as #{@game_piece}"
   end
   
@@ -67,9 +67,11 @@ class Player
     @name = gets.chomp
   end
 
-  def player_piece_choice
-    puts "#{@name} select a piece"
-    @game_piece = gets.chomp.upcase
+  def player_piece_choice(num)
+    if (num == 1)
+      @game_piece = 'X'
+    else @game_piece = 'O'
+    end
   end
 
 end
