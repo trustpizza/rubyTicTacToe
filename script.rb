@@ -1,7 +1,17 @@
 class TicTacToe 
   attr_accessor :game_board
   @@game_over = false
-  @@win_conditions = 
+
+  LINES = [
+    [0,1,2],
+    [3,4,5],
+    [6,7,8],
+    [0,3,6],
+    [1,4,7],
+    [2,5,8],
+    [0,4,8],
+    [2,4,6]
+  ]
 
   def initialize(player_1, player_2)
     @player_1 = player_1
@@ -37,42 +47,41 @@ class TicTacToe
     puts row3
   end
 
-  def game_over
-    if @board
-
   def play 
     current_player = @player_1
+    available_positions = [1,2,3,4,5,6,7,8,9]
     until @@game_over
       system('clear')
       game_board
       puts "#{current_player.name} which spot would you like to place your token at?"
 
       choice = gets.chomp.to_i
-      if @board[choice - 1].is_a? Integer
-        @board[choice - 1] = current_player.game_piece
-      else
-        puts 'Only select numbered spaces'
-        choice = gets.chomp.to_i
-        @board[choice - 1] = current_player.game_piece
-      end
-
-      stalemate
-
+      if available_positions.include?(choice)
+        available_positions.delete(choice)
+        @board[choice -1] = current_player.game_piece   
+      end 
+      win(current_player)
+      stalemate(available_positions)
       current_player == @player_1 ? current_player = @player_2 : current_player = @player_1
     end
   end    
 
-  def stalemate 
-    board = @board
-    if board.none? { |place| place.is_a? Integer}
+  def stalemate(available_positions)
+    if available_positions.empty?
+      puts "Game Over! It's a draw"
       @@game_over = true
+    end
+  end
+
+  def win(current_player) 
+    LINES.any? do |line|
+      line.all? {|position| @board[position] == current_player.game_piece}
     end
   end
 end
 
 class Player
   attr_accessor :name, :game_piece
-  @@player_counter = 0;
 
   def initialize(num)
     player_name(num)
