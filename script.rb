@@ -1,6 +1,7 @@
 class TicTacToe 
   attr_accessor :game_board
   @@game_over = false
+  @@win_conditions = 
 
   def initialize(player_1, player_2)
     @player_1 = player_1
@@ -16,13 +17,11 @@ class TicTacToe
   end
 
   def welcome
-    row1 = "==============="
-    row2 = "===TicTacToe==="
-    puts row1
-    puts row1
-    puts row2
-    puts row1
-    puts row1
+    puts "==============="
+    puts "==============="
+    puts "===TicTacToe==="
+    puts "==============="
+    puts "==============="
   end
 
   def game_board
@@ -38,18 +37,37 @@ class TicTacToe
     puts row3
   end
 
+  def game_over
+    if @board
+
   def play 
     current_player = @player_1
     until @@game_over
+      system('clear')
       game_board
       puts "#{current_player.name} which spot would you like to place your token at?"
 
       choice = gets.chomp.to_i
-      @board[choice -1] = current_player.game_piece
+      if @board[choice - 1].is_a? Integer
+        @board[choice - 1] = current_player.game_piece
+      else
+        puts 'Only select numbered spaces'
+        choice = gets.chomp.to_i
+        @board[choice - 1] = current_player.game_piece
+      end
+
+      stalemate
 
       current_player == @player_1 ? current_player = @player_2 : current_player = @player_1
     end
-  end  
+  end    
+
+  def stalemate 
+    board = @board
+    if board.none? { |place| place.is_a? Integer}
+      @@game_over = true
+    end
+  end
 end
 
 class Player
