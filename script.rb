@@ -12,7 +12,7 @@ class TicTacToe
     puts "Player 2 is #{@player_2}"
     welcome
     game_board
-
+    game
   end
 
   def welcome
@@ -36,6 +36,13 @@ class TicTacToe
     puts divider
     puts row3
   end
+
+  def game 
+    # Player 1 goes first
+    # Player 1 Selects a space
+    # That space [x-1] in the @board is replaced by their token
+    # Reprint game_board
+  end  
 end
 
 class Player
