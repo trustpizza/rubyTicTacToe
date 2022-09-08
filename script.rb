@@ -1,25 +1,64 @@
-class Player
-    attr_accessor :name, :game_piece
-    @@player_counter = 0
-    def initialize(name, game_piece)
-        @name = name
-        @game_piece = game_piece    
-    end
-    def self.create_player
-        @@player_counter += 1
-        puts "Hi Player #{@@player_counter}, What is your name?"
-        name = gets.chomp
-        puts "#{name}, what letter would you like to represent you?"
-        game_piece = gets.chomp
-        Player.new(name, game_piece)
-    end
-    def start_game
-        puts "Ready, Set, Go!"
-    end
+class TicTacToe 
+  attr_accessor :game_board
+  def initialize(player_1, player_2)
+    @player_1 = player_1
+    @player_2 = player_2
+    @board = [1,2,3,4,5,6,7,8,9]
+    start_game
+  end
+
+  def start_game
+    puts "Player 1 is #{@player_1}"
+    puts "Player 2 is #{@player_2}"
+    welcome
+    game_board
+
+  end
+
+  def welcome
+    row1 = "==============="
+    row2 = "===TicTacToe==="
+    puts row1
+    puts row1
+    puts row2
+    puts row1
+    puts row1
+  end
+
+  def game_board
+    row1 = "#{@board[0]} | #{@board[1]} | #{@board[2]}"
+    row2 = "#{@board[3]} | #{@board[4]} | #{@board[5]}"
+    row3 = "#{@board[6]} | #{@board[7]} | #{@board[8]}"
+    divider = "--+---+--"
+    puts row1
+    puts divider
+    puts row2
+    puts divider
+    puts row3
+  end
 end
 
-player_1 = Player.create_player.inspect;
-player_2 = Player.create_player.inspect;
+class Player
+  attr_accessor :name, :game_piece
+  @@player_counter = 0;
 
-puts player_1
-puts player_2
+  def initialize(name, game_piece)
+    @name = name
+    @game_piece = game_piece
+  end
+  
+  def self.create_player
+    @@player_counter += 1
+    puts "Hi Player #{@@player_counter}, What is your name?"
+    name = gets.chomp
+    puts "What letter would you like to represent you, #{name}?"
+    game_piece = gets.chomp
+    Player.new(name, game_piece)
+  end
+
+end
+
+player_1 = Player.create_player.inspect
+player_2 = Player.create_player.inspect
+game = TicTacToe.new(player_1, player_2)
+
