@@ -60,7 +60,9 @@ class TicTacToe
         available_positions.delete(choice)
         @board[choice -1] = current_player.game_piece   
       end 
-      win(current_player)
+      if win(current_player)
+        puts "#{current_player} has won!"
+      end
       stalemate(available_positions)
       current_player == @player_1 ? current_player = @player_2 : current_player = @player_1
     end
