@@ -61,7 +61,9 @@ class TicTacToe
         @board[choice -1] = current_player.game_piece   
       end 
       if win(current_player)
-        puts "#{current_player} has won!"
+        puts "#{current_player.name} has won!"
+        @@game_over = true
+        game_board
       end
       stalemate(available_positions)
       current_player == @player_1 ? current_player = @player_2 : current_player = @player_1
