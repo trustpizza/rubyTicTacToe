@@ -38,13 +38,16 @@ class TicTacToe
 
   def play 
     current_player = @player_1
-    game_board
-    puts "#{current_player} which spot would you like to place your token at?"
-    choice = gets.chomp.to_i
-    @board[choice -1] = 'X'
-    game_board
-    current_player == @player_1 ? @player_2 : @player_1
-    play
+    until @game_over
+      game_board
+      puts "#{current_player} which spot would you like to place your token at?"
+
+      choice = gets.chomp.to_i
+      @board[choice -1] = current_player.game_piece # This does NOT work right now
+
+      current_player == @player_1 ? @player_2 : @player_1
+    end
+    
     # Player 1 goes first
     # Player 1 Selects a space
     # That space [x-1] in the @board is replaced by their token
